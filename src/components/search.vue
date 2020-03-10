@@ -29,7 +29,7 @@
 </template>
 <script>
 import Vue from 'vue'
-import {mapState} from 'vuex'
+import { mapState } from 'vuex'
 import { Icon, Field } from 'vant'
 Vue.use(Icon).use(Field)
 export default {
@@ -38,8 +38,8 @@ export default {
       value: ''
     }
   },
-  computed:{
-   ...mapState("city",["cityName"])
+  computed: {
+    ...mapState('city', ['cityName'])
   },
   methods: {
     goSearch () {
@@ -72,7 +72,7 @@ export default {
         display: flex;
         margin-top: 0.625rem;
         .H4{
-         font-size: 1.25rem;
+         height: 2.5625rem;
         }
         .van-icon {
           font-size: 1rem;

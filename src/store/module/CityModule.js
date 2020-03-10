@@ -1,22 +1,18 @@
 const module = {
-  namespaced: true, //命名空间
+  namespaced: true, // 命名空间
   state: {
-    cityName: "上海",
-    cityId: "292"
+    cityName: '上海',
+    cityId: '292'
   },
   actions: {},
   mutations: {
-    setCityName(state, name) {
-      state.cityName = name;
+    setCityName (state, name) {
+      state.cityName = name
     },
-    setCityId(state, id) {
-      
-      
-      state.cityId = id;
-      console.log(state.cityId);
-      
+    setCityId (state, id) {
+      state.cityId = id
     }
   }
-};
+}
 
-export default module;
+export default module

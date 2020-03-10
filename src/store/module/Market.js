@@ -3,9 +3,8 @@ const module = {
   namespaced: true,
   state: {
     pageTitle: '', // 搜索框内容
-    listAllShop: [],// 搜索后的内容
-    suggestionsList: [],
-
+    listAllShop: [], // 搜索后的内容
+    suggestionsList: []
   },
   mutations: {
     // 设置搜索框内容
@@ -45,7 +44,6 @@ const module = {
         }
       }).then(res => {
         store.commit('setlistAllShop', res.data.content.goods.goodsList)
-        console.log(res.data.content.goods.goodsList)
       })
     },
     searchInp (store, value) {
@@ -55,7 +53,6 @@ const module = {
           url: `/Service/callback.mi/Search/SearchSuggestionNew.api?keyword=${value}`
         })
         .then(res => {
-          console.log(res)
           store.commit('suggestions', res.data.suggestions)
         })
     }

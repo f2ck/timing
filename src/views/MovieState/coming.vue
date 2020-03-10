@@ -51,11 +51,7 @@
         <div v-for="month in months" :key="month">
           <p class="months">{{ month }}月</p>
           <ul class="cominglist">
-            <li
-             v-for="item in coming"
-
-              :key="item.id"
-            >
+            <li v-for="item in coming" :key="item.id">
               <p class="day">{{ item.rDay }}日</p>
               <p class="pic"><img :src="item.image" alt="" /></p>
               <div class="cominginfo">
@@ -72,7 +68,12 @@
                       演员：{{ item.actor1 }},{{ item.actor2 }}
                     </p>
                     <div class="btns" v-if="item.videos.length">
-                      <van-button v-if="item.isTicket" round type="info" color="orange" size="small"
+                      <van-button
+                        v-if="item.isTicket"
+                        round
+                        type="info"
+                        color="orange"
+                        size="small"
                         >超前预售</van-button
                       >
                       <van-button round type="info" plain size="small"
@@ -113,14 +114,13 @@ export default {
           '/Service/callback.mi/Movie/MovieComingNew.api?locationId=292&t=2020361148485700'
       })
       this.attention = res.attention
-      console.log(this.attention)
     },
     async getcomings () {
       const { data: res } = await http.request({
         url:
           '/Service/callback.mi/Movie/MovieComingNew.api?locationId=974&t=20203615322384062'
       })
-      console.log(res.moviecomings)
+
       this.coming = res.moviecomings
       const newarr = res.moviecomings.map(item => item.rMonth)
       this.months = Array.from(new Set(newarr))

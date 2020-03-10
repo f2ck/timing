@@ -10,7 +10,13 @@
     <p class="hotcity">热门城市:</p>
 
     <ul class="hotcityList">
-      <li v-for="item in hotcity" :key="item.id" @click="handlechangeCity(item)">{{ item.n }}</li>
+      <li
+        v-for="item in hotcity"
+        :key="item.id"
+        @click="handlechangeCity(item)"
+      >
+        {{ item.n }}
+      </li>
     </ul>
     <div class="Acontainer" v-for="i in IndexList" v-if="i != ''">
       <p class="hotcity">
@@ -29,77 +35,72 @@
   </div>
 </template>
 <script>
-import Vue from "vue";
-import http from "@/utils/http";
-import { mapState, mapMutations, mapGetters } from "vuex";
-import { IndexBar, IndexAnchor, Cell, Search } from "vant";
-Vue.use(IndexBar);
-Vue.use(IndexAnchor);
-Vue.use(Cell);
-Vue.use(Search);
+import Vue from 'vue'
+import http from '@/utils/http'
+import { mapState, mapMutations } from 'vuex'
+import { IndexBar, IndexAnchor, Cell, Search } from 'vant'
+Vue.use(IndexBar)
+Vue.use(IndexAnchor)
+Vue.use(Cell)
+Vue.use(Search)
 
 export default {
-  data() {
+  data () {
     return {
-      value: "",
+      value: '',
       letterArr: [],
       citylist: [],
       hotcity: []
-    };
+    }
   },
-  mounted() {
-    this.hide(), this.getCitylist();
-    this.dataFilter();
+  mounted () {
+    this.hide(), this.getCitylist()
+    this.dataFilter()
   },
-  destroyed() {
-    this.show();
+  destroyed () {
+    this.show()
   },
   methods: {
-    ...mapMutations("tabbar", ["hide", "show"]),
-    ...mapMutations("city", ["setCityName", "setCityId"]),
-    dataFilter() {
+    ...mapMutations('tabbar', ['hide', 'show']),
+    ...mapMutations('city', ['setCityName', 'setCityId']),
+    dataFilter () {
       for (var i = 65; i < 91; i++) {
-        this.letterArr.push(String.fromCharCode(i));
+        this.letterArr.push(String.fromCharCode(i))
       }
     },
 
-    async getCitylist() {
+    async getCitylist () {
       const { data: res } = await http.request({
         url:
-          "/position/api/proxy/ticket/Showtime/HotCitiesByCinema.api?_=1583750661144"
-      });
-      this.citylist = res.p;
-      this.hotcity = res.p.slice(0, 9);
-      console.log(
-        this.citylist.map(item => item.pinyinFull.slice(0, 1).toUpperCase())
-      );
-
-      console.log(this.hotcity);
+          '/position/api/proxy/ticket/Showtime/HotCitiesByCinema.api?_=1583750661144'
+      })
+      this.citylist = res.p
+      this.hotcity = res.p.slice(0, 9)
     },
-    goback() {
-      this.$router.back();
+    goback () {
+      this.$router.back()
     },
-    handlechangeCity(data) {
-      this.$router.push("/");
-      this.setCityName(data.n);
-      this.setCityId(data.id);
+    handlechangeCity (data) {
+      this.$router.go(-1)
+      this.setCityName(data.n)
+      this.setCityId(data.id)
     }
   },
   computed: {
-    IndexList() {
+    IndexList () {
       const newarr = this.citylist.map(item => {
-        return item.pinyinFull.slice(0, 1).toUpperCase();
-      });
+        return item.pinyinFull.slice(0, 1).toUpperCase()
+      })
 
-      const shortOne = [...Array.from(new Set(newarr))];
-      var shortArr = [];
+      const shortOne = [...Array.from(new Set(newarr))]
+      var shortArr = []
       for (let j = 0; j < this.letterArr.length; j++) {
-        shortArr.push(shortOne.filter(item => item === this.letterArr[j]));
+        shortArr.push(shortOne.filter(item => item === this.letterArr[j]))
       }
-      return shortArr;
+      return shortArr
     }
   }
-};
+}
 </script>
 <style lang="scss" scoped>
 .cityContainer {

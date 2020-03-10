@@ -7,7 +7,7 @@
             <img :src="item.img" alt="" />
           </div>
           <div class="nowPlayingFilm-info">
-            <p class="nowPlayingFilm-name info-col">
+            <p class="nowPlayingFilm-name info-col" >
               <span class="name">{{ item.t }}</span
               >&nbsp;
               <span class="grade" v-if="item.r != -1">{{ item.r }}</span>
@@ -60,7 +60,7 @@ export default {
         url:
           '/Service/callback.mi/Showtime/LocationMovies.api?locationId=292&t=20203610163626810'
       })
-      console.log(res.ms)
+
       this.hotList = res.ms
     }
   }
@@ -68,6 +68,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .Hotplaying {
+  max-width: 4.75rem;
   height: 9.1875rem;
   margin-top: 0.1875rem;
   padding-left: 0.3125rem;
@@ -87,13 +88,14 @@ export default {
   }
   .nowPlayingFilm-info {
     width: 17.125rem;
-    height: 6.875rem;
+    max-height: 6.875rem;
 
     margin-top: 0.5625rem;
     margin-left: 0.9375rem;
 
     .nowPlayingFilm-name .name {
       max-width: calc(100% - 25px);
+
       color: #191a1b;
       font-size: 1.2rem;
       font-weight: bold;

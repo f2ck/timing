@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="wrap_cont" style="min-height: 490px;" >
+    <div class="wrap_cont" style="min-height: 490px;">
       <!-- 搜索组件 -->
       <my-search style="margin-top:3.125rem"></my-search>
       <section class="indexmovie" :key="hotMovieList.length">
@@ -32,7 +32,7 @@
         <router-link to="/Film/coming">
           <h2>
             <b style="color:black;">即将上映（{{ totalComingMovie }}部）</b>
-            <van-icon name="arrow" color="#000000" />
+            <van-icon style="margin-left:120px" name="arrow" color="#000000" />
           </h2>
         </router-link>
       </section>
@@ -43,7 +43,7 @@
         <div class="todayhot">
           <h2>今日热点</h2>
           <ul class="hotpoints">
-            <li v-for="(item,index) in TodayTopic" :key="index">
+            <li v-for="(item, index) in TodayTopic" :key="index">
               <div
                 v-show="item.tag != '广告'"
                 v-if="item.styleType === 2"
@@ -72,7 +72,7 @@
                   {{ item.title }}
                 </h2>
                 <div class="table piclist">
-                  <p class="td" v-for="(i,index) in item.images" :key="index">
+                  <p class="td" v-for="(i, index) in item.images" :key="index">
                     <img class="m_img img_box" :src="i.imgUrl" />
                   </p>
                 </div>
@@ -102,6 +102,7 @@
           </ul>
         </div>
       </section>
+      <div class="findMore" @click="getMoreTopic"><p>查看更多</p></div>
     </div>
   </div>
 </template>
@@ -110,7 +111,7 @@
 import http from '@/utils/http'
 import Vue from 'vue'
 import { Icon, Field } from 'vant'
-import {mapState} from 'vuex'
+import { mapState } from 'vuex'
 Vue.use(Icon).use(Field)
 export default {
   data () {
@@ -127,24 +128,19 @@ export default {
     this.getMallarea()
     this.getTodayTopic()
   },
-  computed:{
-    ...mapState("city",["cityId"])
+  computed: {
+    ...mapState('city', ['cityId'])
   },
   methods: {
     async gethotMovieList () {
-      console.log(this.cityId);
-      
       const { data: res } = await http.request({
-        url:
-          `/Service/callback.mi/Showtime/LocationMovies.api?locationId=${this.cityId}&t=20203811493954690`
+        url: `/Service/callback.mi/Showtime/LocationMovies.api?locationId=${this.cityId}&t=20203811493954690`
       })
-
       this.hotMovieList = res.ms
     },
     async gettotalComingMovie () {
       const { data: res } = await http.request({
-        url:
-          `/Service/callback.mi/Showtime/LocationMovies.api?locationId=${this.cityId}&t=202035932410459`
+        url: `/Service/callback.mi/Showtime/LocationMovies.api?locationId=${this.cityId}&t=202035932410459`
       })
 
       this.totalComingMovie = res.totalComingMovie
@@ -161,8 +157,17 @@ export default {
         url: 'ajax/article/originalInfoList.api'
       })
       this.TodayTopic = res.data.list
+    },
+    async getMoreTopic () {
+      const t = this.TodayTopic.slice(-1)[0].publishTime
+      const { data: res } = await http.request({
+        url: `ajax/article/originalInfoList.api?t=202031019474416583&locationId=371&time=${t}`
+      })
+      const newarr = res.data.list
+      for (let i = 0; i < newarr.length; i++) {
+        this.TodayTopic.push(newarr[i])
+      }
     }
-    
   }
 }
 </script>
@@ -319,6 +324,16 @@ export default {
         }
       }
     }
+  }
+}
+.findMore {
+  width: 100%;
+  height: 3.125rem;
+  text-align: center;
+  line-height: 3.125rem;
+  p {
+    font-size: 18px;
+    color: blue;
   }
 }
 </style>

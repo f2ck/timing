@@ -7,30 +7,25 @@ const module = {
   mutations: {
     Cinemalist (state, data) {
       state.Cinemalist = data
-      console.log(state.Cinemalist);
-      
     }
-
   },
   actions: {
-    getCinemaAction (store,id) {
+    getCinemaAction (store, id) {
       http
         .request({
           url: `/position/api/proxy/ticket/onlineCinemasByCity.api?locationId=${id}&_=1583750661142`
         })
         .then(res => {
-            console.log(res);
-            
           store.commit('Cinemalist', res.data.data.cinemaList)
         })
     }
-  },
-//   getters: {
-//     topDataList (state) {
-//       // state形参s， vuex自动调用时候，传来值
-//       return state.cityList.slice(0, 9)
-//     }
+  }
+  //   getters: {
+  //     topDataList (state) {
+  //       // state形参s， vuex自动调用时候，传来值
+  //       return state.cityList.slice(0, 9)
+  //     }
 
-//   }
+  //   }
 }
 export default module
