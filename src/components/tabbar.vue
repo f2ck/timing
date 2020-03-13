@@ -7,7 +7,7 @@
         </div>
       </li>
       <router-link to="/Home" tag="li" active-class="active" @click.native="overly">首页</router-link>
-      <router-link to="/theater/id/cinema"  tag="li" active-class="active" @click.native="overly">购票</router-link>
+      <router-link :to="{ path: `/theater/${this.cityId}/cinema`}"  tag="li" active-class="active" @click.native="overly">购票</router-link>
       <router-link to="/ShopMarket"  tag="li" active-class="active" @click.native="overly">商城</router-link>
       <router-link to="/FindNews"  tag="li" active-class="active" @click.native="overly">发现</router-link>
       <router-link to="/Center"  tag="li" active-class="active" @click.native="overly"><i class="iconfont icon-account" style="font-size:1.3rem"></i></router-link>
@@ -16,22 +16,23 @@
 </template>
 
 <script>
-import Vue from "vue"
+import Vue from 'vue'
 import { Toast } from 'vant'
-import {mapState} from 'vuex'
+import { mapState } from 'vuex'
 Vue.use(Toast)
 export default {
-  computed:{
-   ...mapState('city',"cityId")
+  computed: {
+    ...mapState('city', ['cityId'])
   },
-  methods:{
-    overly(){
+
+  methods: {
+    overly () {
       Toast.loading({
         message: '加载中...',
         forbidClick: true,
-        overlay:true, //是否显示背景遮罩层
-        duration:1500 //不会消失
-      });
+        overlay: true, // 是否显示背景遮罩层
+        duration: 1500 // 不会消失
+      })
     }
   }
 }

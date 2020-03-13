@@ -27,11 +27,13 @@ const routes = [
     ]
   },
   {
-    path: '/theater/id/cinema',
+    path: '/theater/:id/cinema',
+    name: 'theater',
     component: () => import(/* webpackChunkName:'BuyTicket' */ '@/views/Cinema'),
-   
+    props: true
+
   },
- 
+
   {
     path: '/Center',
     component: () => import(/* webpackChunkName:'Center' */ '@/views/Center')

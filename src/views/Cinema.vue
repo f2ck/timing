@@ -1,5 +1,5 @@
 <template>
-  <div class="theater">
+  <div class="theater" >
     <div class="cityshow">
       <p class="cityname" @click="gocity">
         {{ cityName }}
@@ -16,7 +16,7 @@
         </div>
       </van-search>
     </div>
-    <ul>
+    <ul >
       <li class="cinemalist" v-for="item in Cinemalist" :key="item.cinemaId">
         <p class="cinemaName">{{ item.cinameName }}</p>
         <p class="address">{{ item.address }}</p>
@@ -30,10 +30,12 @@ import { mapState } from 'vuex'
 import Vue from 'vue'
 import { Search } from 'vant'
 Vue.use(Search)
+
 export default {
   data () {
     return {
-      mytext: ''
+      mytext: '',
+      scrollHeight: '0px'
     }
   },
   mounted () {

@@ -1,7 +1,6 @@
 module.exports = {
   devServer: {
     open: true,
-    hot: true,
     overlay: {
       warnings: false, // 关闭桌面代码审查爆出的warning和error
       errors: false
